@@ -190,6 +190,16 @@ class ProfileParser {
     int parallelism = 4,
   }) async {
     final content = await File(tempFilePath).readAsString();
+    final trimmed = content.trimLeft();
+    // If it's already a structured Clash YAML or sing-box JSON configuration, do NOT expand or strip indentations
+    if (trimmed.startsWith('{') ||
+        trimmed.startsWith('[') ||
+        content.contains('proxies:') ||
+        content.contains('proxy-groups:') ||
+        content.contains('outbounds:')) {
+      return;
+    }
+
     final lines = content.split('\n');
 
     final results = List<String?>.filled(lines.length, null);
@@ -206,8 +216,8 @@ class ProfileParser {
         final line = lines[currentIndex];
 
         // Non-URL
-        if (!line.startsWith('http://') && !line.startsWith('https://')) {
-          results[currentIndex] = line.trim();
+        if (!line.trim().startsWith('http://') && !line.trim().startsWith('https://')) {
+          results[currentIndex] = line;
           continue;
         }
 

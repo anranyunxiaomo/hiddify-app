@@ -36,7 +36,7 @@ class DioHttpClient with InfraLogger {
             if (mode == "proxy") {
               return "PROXY localhost:$port";
             } else if (mode == "direct") {
-              return "DIRECT";
+              return HttpClient.findProxyFromEnvironment(url);
             } else {
               return "PROXY localhost:$port; DIRECT";
             }
@@ -145,8 +145,7 @@ class DioHttpClient with InfraLogger {
       headers: {
         if (userAgent != null) "User-Agent": userAgent,
         if (basicAuth != null) "authorization": basicAuth,
-        // "Accept": "application/json",
-        // "Content-Type": "application/json",
+        "Accept": "*/*",
       },
     );
   }
