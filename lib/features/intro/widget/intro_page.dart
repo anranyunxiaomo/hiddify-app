@@ -243,7 +243,7 @@ class IntroPage extends HookConsumerWidget with PresLogger {
       case "TR":
         return RegionLocale(Region.tr, AppLocale.tr);
       default:
-        return RegionLocale(Region.other, AppLocale.en);
+        return RegionLocale(Region.other, AppLocale.zhCn);
     }
   }
 }
@@ -293,8 +293,8 @@ class RegionDetector {
       return 'TR';
     }
 
-    if (tz.contains('china') || tz.contains('beijing')) return 'CN';
-    if (tz == 'cst' && offset == 480) return 'CN';
+    if (tz.contains('china') || tz.contains('beijing') || tz.contains('中国') || tz.contains('北京')) return 'CN';
+    if ((tz == 'cst' || tz.contains('china standard time')) && offset == 480) return 'CN';
 
     if (_matchesRussiaTz(tz)) return 'RU';
 

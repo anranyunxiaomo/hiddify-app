@@ -332,10 +332,10 @@
             "other": "其他"
           },
           "balancerStrategy": {
-            "title": "Balancer 策略",
-            "roundRobin": "Round robin",
-            "consistentHash": "Consistent hash",
-            "stickySession": "Sticky session"
+            "title": "负载均衡策略",
+            "roundRobin": "轮询",
+            "consistentHash": "一致性哈希",
+            "stickySession": "粘性会话"
           },
           "resolveDestination": "解析目的地",
           "ipv6Route": "IPv6 路由",
