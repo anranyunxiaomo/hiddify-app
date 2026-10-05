@@ -6,11 +6,12 @@ create_desktop_icon: true
 install_dir_name: "{autopf64}\\Hiddify"
 setup_icon_file: windows\runner\resources\app_icon.ico
 locales:
-  - ar
+  - zh
   - en
   - es
   - fr
   - pt
   - ru
   - tr
+  - ar
 script_template: inno_setup.sas
