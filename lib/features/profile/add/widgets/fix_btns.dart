@@ -44,7 +44,7 @@ class FixBtns extends ConsumerWidget {
           onTap: () async {
             final result = await FilePicker.platform.pickFiles(
               type: FileType.custom,
-              allowedExtensions: ['txt', 'json'],
+              allowedExtensions: ['txt', 'json', 'yaml', 'yml'],
             );
             if (result == null) return;
             final file = File(result.files.single.path!);
