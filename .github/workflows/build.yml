@@ -268,6 +268,28 @@ jobs:
                                                                      -replace '^install_certificate:.*$', 'install_certificate: "true"' | Set-Content "windows\packaging\msix\make_config.yaml"
             }
 
+      - name: Setup Inno Setup Chinese Language
+        if: startsWith(matrix.platform,'windows')
+        shell: pwsh
+        run: |
+          $languages = @(
+            "${env:ProgramFiles(x86)}\Inno Setup 6\Languages",
+            "${env:ProgramFiles}\Inno Setup 6\Languages"
+          )
+          $found = $false
+          foreach ($langDir in $languages) {
+            if (Test-Path $langDir) {
+              Copy-Item "windows\packaging\exe\ChineseSimplified.isl" -Destination $langDir -Force
+              Copy-Item "windows\packaging\exe\ChineseTraditional.isl" -Destination $langDir -Force
+              Write-Host "Successfully installed Chinese language files to $langDir"
+              Get-ChildItem $langDir\Chinese*.isl | Select-Object FullName, Length
+              $found = $true
+            }
+          }
+          if (-not $found) {
+            Write-Warning "Could not find Inno Setup Languages directory in standard paths!"
+          }
+
       - name: Prepare for ${{ matrix.platform }}
         run: |
           make ${{ matrix.platform }}-prepare

@@ -313,6 +313,13 @@ windows-zip-release:
 	$(GREEN)Successful$(DONE)
 
 windows-exe-release:
+	@if [ -d "/c/Program Files (x86)/Inno Setup 6/Languages" ]; then \
+	  cp windows/packaging/exe/ChineseSimplified.isl "/c/Program Files (x86)/Inno Setup 6/Languages/"; \
+	  cp windows/packaging/exe/ChineseTraditional.isl "/c/Program Files (x86)/Inno Setup 6/Languages/"; \
+	elif [ -d "/c/Program Files/Inno Setup 6/Languages" ]; then \
+	  cp windows/packaging/exe/ChineseSimplified.isl "/c/Program Files/Inno Setup 6/Languages/"; \
+	  cp windows/packaging/exe/ChineseTraditional.isl "/c/Program Files/Inno Setup 6/Languages/"; \
+	fi
 	fastforge package \
 	  --platform windows \
 	  --targets exe \
