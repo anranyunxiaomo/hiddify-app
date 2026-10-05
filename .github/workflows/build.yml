@@ -460,6 +460,7 @@ jobs:
           tag_name: 'draft'
           body_path: './release.md'
           prerelease: true
+          target_commitish: ${{ github.sha }}
 
 
   upload-release:
